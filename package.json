@@ -1,0 +1,36 @@
+{
+  "name": "randommatch",
+  "version": "1.0.0",
+  "main": "main.js",
+  "scripts": {
+    "dev": "parcel ./src/index.html",
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/hack-u-muds/randommatch.git"
+  },
+  "author": "",
+  "license": "ISC",
+  "bugs": {
+    "url": "https://github.com/hack-u-muds/randommatch/issues"
+  },
+  "homepage": "https://github.com/hack-u-muds/randommatch#readme",
+  "description": "",
+  "dependencies": {
+    "@skyway-sdk/room": "^1.11.1",
+    "dotenv": "^16.4.7"
+  },
+  "devDependencies": {
+    "buffer": "^6.0.3",
+    "crypto-browserify": "^3.12.1",
+    "events": "^3.3.0",
+    "os-browserify": "^0.3.0",
+    "parcel": "^2.13.3",
+    "path-browserify": "^1.0.1",
+    "process": "^0.11.10",
+    "stream-browserify": "^3.0.0",
+    "string_decoder": "^1.3.0",
+    "vm-browserify": "^1.1.2"
+  }
+}
