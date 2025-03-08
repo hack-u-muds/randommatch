@@ -1,6 +1,5 @@
 import { nowInSec, SkyWayAuthToken, SkyWayContext, SkyWayRoom, SkyWayStreamFactory, uuidV4 } from "@skyway-sdk/room";
 
-
 const token = new SkyWayAuthToken({
   jti: uuidV4(),
   iat: nowInSec(),
@@ -31,8 +30,15 @@ const token = new SkyWayAuthToken({
   const joinButton = document.getElementById("join");
   const leaveButton = document.getElementById("leave");
 
+  const toggleAudioButton = document.getElementById("toggle-audio");
+  const toggleVideoButton = document.getElementById("toggle-video");
+
+  let audioStream, videoStream, me;
+
   const { audio, video } =
     await SkyWayStreamFactory.createMicrophoneAudioAndCameraStream();
+  audioStream = audio;
+  videoStream = video;
   video.attach(localVideo);
   await localVideo.play();
 
@@ -44,12 +50,12 @@ const token = new SkyWayAuthToken({
       type: "p2p",
       name: roomNameInput.value,
     });
-    const me = await room.join();
+    me = await room.join();
 
     myId.textContent = me.id;
 
-    await me.publish(audio);
-    await me.publish(video);
+    await me.publish(audioStream);
+    await me.publish(videoStream);
 
     const subscribeAndAttach = (publication) => {
       if (publication.publisher.id === me.id) return;
@@ -100,4 +106,23 @@ const token = new SkyWayAuthToken({
       document.getElementById(`media-${e.publication.id}`)?.remove();
     });
   };
+
+  // マイクのON/OFF
+  toggleAudioButton.onclick = () => {
+    if (audioStream) {
+      const isEnabled = audioStream.track.enabled;
+      audioStream.track.enabled = !isEnabled;
+      toggleAudioButton.textContent = isEnabled ? "マイクON" : "マイクOFF";
+    }
+  };
+
+  // カメラのON/OFF
+  toggleVideoButton.onclick = () => {
+    if (videoStream) {
+      const isEnabled = videoStream.track.enabled;
+      videoStream.track.enabled = !isEnabled;
+      toggleVideoButton.textContent = isEnabled ? "カメラON" : "カメラOFF";
+    }
+  };
+
 })();
