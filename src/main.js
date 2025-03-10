@@ -12,6 +12,20 @@ const token = new SkyWayAuthToken({
   }
 }).encode("/Ic9tG1SNhXYfESb3aPLBl8UdXZInffQrN5yqwir+yE=");
 
+// ✅ 日本語のときだけ Base64 エンコード
+const encodeText = (text) => {
+  const containsJapanese = /[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u.test(text);
+  return containsJapanese ? btoa(unescape(encodeURIComponent(text))) : text;
+};
+
+const decodeText = (encoded) => {
+  try {
+    return decodeURIComponent(escape(atob(encoded)));
+  } catch {
+    return encoded;
+  }
+};
+
 (async () => {
   const localVideo = document.getElementById("local-video");
   const buttonArea = document.getElementById("button-area");
@@ -27,21 +41,22 @@ const token = new SkyWayAuthToken({
   let currentRoom = null;
   let currentMember = null;
 
-  // 音声・ビデオストリームの作成
+  // 🎥 音声・ビデオストリームの作成
   const { audio, video } = await SkyWayStreamFactory.createMicrophoneAudioAndCameraStream();
   video.attach(localVideo);
   await localVideo.play();
 
   const context = await SkyWayContext.Create(token);
 
-  // 既存のルーム一覧を取得して表示
+  // 🌎 既存のルーム一覧を取得して表示
   const updateRoomList = async () => {
     roomList.innerHTML = ""; // リストをクリア
     const rooms = await SkyWayRoom.List(context);
 
     rooms.forEach(room => {
+      const decodedName = decodeText(room.name);
       const listItem = document.createElement("li");
-      listItem.textContent = decodeURIComponent(room.name);
+      listItem.textContent = decodedName;
 
       const joinButton = document.createElement("button");
       joinButton.textContent = "Join";
@@ -52,10 +67,10 @@ const token = new SkyWayAuthToken({
     });
   };
 
-  updateRoomList(); // 初回更新
-  setInterval(updateRoomList, 5000); // 5秒ごとにリストを更新
+  updateRoomList();
+  setInterval(updateRoomList, 5000);
 
-  // ルーム作成ボタン
+  // 🚀 ルーム作成ボタン
   createRoomButton.onclick = async () => {
     const gameName = gameInput.value.trim();
     const userName = userNameInput.value.trim();
@@ -65,11 +80,12 @@ const token = new SkyWayAuthToken({
       return;
     }
 
-    const encodedRoomName = encodeURIComponent(gameName);
-    await joinRoom(encodedRoomName, userName);
+    const encodedRoomName = encodeText(gameName);
+    const encodedUserName = encodeText(userName);
+    await joinRoom(encodedRoomName, encodedUserName);
   };
 
-  // ルームに参加する処理
+  // 📌 ルームに参加する処理
   const joinRoom = async (roomName, userName) => {
     if (!userName) {
       alert("ユーザー名を入力してください！");
@@ -87,17 +103,17 @@ const token = new SkyWayAuthToken({
     currentRoom = room;
     currentMember = me;
     myId.textContent = me.id;
-    joinedRoomName.textContent = `参加中の部屋: ${decodeURIComponent(roomName)}`;
+    joinedRoomName.textContent = `参加中の部屋: ${decodeText(roomName)}`;
 
     await me.publish(audio);
     await me.publish(video);
 
-    // ユーザーリストの更新
+    // 👥 ユーザーリストの更新
     const updateUserList = () => {
       roomUsersList.innerHTML = "";
       room.members.forEach(member => {
         const listItem = document.createElement("li");
-        listItem.textContent = member.name || `User (${member.id})`;
+        listItem.textContent = decodeText(member.name) || `User (${member.id})`;
         listItem.id = `user-${member.id}`;
         roomUsersList.appendChild(listItem);
       });
@@ -109,13 +125,13 @@ const token = new SkyWayAuthToken({
       document.getElementById(`user-${member.id}`)?.remove();
     });
 
-    // ストリームの購読
+    // 🎙 ストリームの購読
     const subscribeAndAttach = (publication) => {
       if (publication.publisher.id === me.id) return;
 
       const subscribeButton = document.createElement("button");
       subscribeButton.id = `subscribe-button-${publication.id}`;
-      subscribeButton.textContent = `${publication.publisher.name}: ${publication.contentType}`;
+      subscribeButton.textContent = `${decodeText(publication.publisher.name)}: ${publication.contentType}`;
       buttonArea.appendChild(subscribeButton);
 
       subscribeButton.onclick = async () => {
@@ -149,7 +165,7 @@ const token = new SkyWayAuthToken({
       document.getElementById(`media-${e.publication.id}`)?.remove();
     });
 
-    // 退出ボタンの作成
+    // 🔴 退出ボタンの作成
     const leaveButton = document.createElement("button");
     leaveButton.textContent = "部屋を退出";
     leaveButton.onclick = async () => {
