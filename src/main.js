@@ -18,8 +18,11 @@ const token = new SkyWayAuthToken({
   const remoteMediaArea = document.getElementById("remote-media-area");
   const myId = document.getElementById("my-id");
   const gameInput = document.getElementById("game-name");
-  const joinButton = document.getElementById("join-room");
+  const userNameInput = document.getElementById("user-name");
+  const createRoomButton = document.getElementById("create-room");
   const joinedRoomName = document.getElementById("joined-room-name");
+  const roomUsersList = document.getElementById("room-users");
+  const roomList = document.getElementById("room-list");
 
   let currentRoom = null;
   let currentMember = null;
@@ -31,36 +34,88 @@ const token = new SkyWayAuthToken({
 
   const context = await SkyWayContext.Create(token);
 
-  joinButton.onclick = async () => {
+  // 既存のルーム一覧を取得して表示
+  const updateRoomList = async () => {
+    roomList.innerHTML = ""; // リストをクリア
+    const rooms = await SkyWayRoom.List(context);
+
+    rooms.forEach(room => {
+      const listItem = document.createElement("li");
+      listItem.textContent = decodeURIComponent(room.name);
+
+      const joinButton = document.createElement("button");
+      joinButton.textContent = "Join";
+      joinButton.onclick = () => joinRoom(room.name, userNameInput.value.trim());
+
+      listItem.appendChild(joinButton);
+      roomList.appendChild(listItem);
+    });
+  };
+
+  updateRoomList(); // 初回更新
+  setInterval(updateRoomList, 5000); // 5秒ごとにリストを更新
+
+  // ルーム作成ボタン
+  createRoomButton.onclick = async () => {
     const gameName = gameInput.value.trim();
-    if (!gameName) {
-      alert("Please enter a game name!");
+    const userName = userNameInput.value.trim();
+
+    if (!gameName || !userName) {
+      alert("ゲーム名とユーザー名を入力してください！");
+      return;
+    }
+
+    const encodedRoomName = encodeURIComponent(gameName);
+    await joinRoom(encodedRoomName, userName);
+  };
+
+  // ルームに参加する処理
+  const joinRoom = async (roomName, userName) => {
+    if (!userName) {
+      alert("ユーザー名を入力してください！");
       return;
     }
 
     if (currentRoom) {
-      alert("You are already in a room. Please leave before joining another.");
+      alert("既に部屋に入っています。退出してから新しい部屋に入ってください。");
       return;
     }
 
-    // ユーザーが入力したゲーム名で部屋を検索または作成
-    const room = await SkyWayRoom.FindOrCreate(context, { type: "p2p", name: gameName });
-    const me = await room.join();
-    
+    const room = await SkyWayRoom.FindOrCreate(context, { type: "p2p", name: roomName });
+    const me = await room.join({ name: userName });
+
     currentRoom = room;
     currentMember = me;
     myId.textContent = me.id;
-    joinedRoomName.textContent = `Joined Room: ${gameName}`;
+    joinedRoomName.textContent = `参加中の部屋: ${decodeURIComponent(roomName)}`;
 
     await me.publish(audio);
     await me.publish(video);
 
+    // ユーザーリストの更新
+    const updateUserList = () => {
+      roomUsersList.innerHTML = "";
+      room.members.forEach(member => {
+        const listItem = document.createElement("li");
+        listItem.textContent = member.name || `User (${member.id})`;
+        listItem.id = `user-${member.id}`;
+        roomUsersList.appendChild(listItem);
+      });
+    };
+
+    updateUserList();
+    room.onMemberJoined.add(() => updateUserList());
+    room.onMemberLeft.add(({ member }) => {
+      document.getElementById(`user-${member.id}`)?.remove();
+    });
+
+    // ストリームの購読
     const subscribeAndAttach = (publication) => {
       if (publication.publisher.id === me.id) return;
 
       const subscribeButton = document.createElement("button");
       subscribeButton.id = `subscribe-button-${publication.id}`;
-      subscribeButton.textContent = `${publication.publisher.id}: ${publication.contentType}`;
+      subscribeButton.textContent = `${publication.publisher.name}: ${publication.contentType}`;
       buttonArea.appendChild(subscribeButton);
 
       subscribeButton.onclick = async () => {
@@ -89,7 +144,6 @@ const token = new SkyWayAuthToken({
 
     room.publications.forEach(subscribeAndAttach);
     room.onStreamPublished.add((e) => subscribeAndAttach(e.publication));
-
     room.onStreamUnpublished.add((e) => {
       document.getElementById(`subscribe-button-${e.publication.id}`)?.remove();
       document.getElementById(`media-${e.publication.id}`)?.remove();
@@ -97,7 +151,7 @@ const token = new SkyWayAuthToken({
 
     // 退出ボタンの作成
     const leaveButton = document.createElement("button");
-    leaveButton.textContent = "Leave Room";
+    leaveButton.textContent = "部屋を退出";
     leaveButton.onclick = async () => {
       if (!currentRoom) return;
 
@@ -105,9 +159,10 @@ const token = new SkyWayAuthToken({
       await currentRoom.dispose();
       currentRoom = null;
       currentMember = null;
-      
+
       myId.textContent = "";
       joinedRoomName.textContent = "";
+      roomUsersList.innerHTML = "";
       buttonArea.replaceChildren();
       remoteMediaArea.replaceChildren();
       leaveButton.remove();
