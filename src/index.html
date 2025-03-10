@@ -1,20 +1,25 @@
 <!DOCTYPE html>
 <html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>SkyWay Tutorial</title>
-  </head>
-  <body>
-    <p>ID: <span id="my-id"></span></p>
-    <div>
-      room name: <input id="room-name" type="text" />
-      <button id="join">join</button>
-      <button id="leave">leave</button>
-    </div>
-    <video id="local-video" width="400px" muted playsinline></video>
-    <div id="button-area"></div>
-    <div id="remote-media-area"></div>
-    <script type="module" src="main.js"></script>
-  </body>
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width" />
+  <title>SkyWay Multiple Rooms</title>
+</head>
+<body>
+  <p>ID: <span id="my-id"></span></p>
+  
+  <h2>Rooms List</h2>
+  <ul id="room-list"></ul>
+
+  <h2>Currently Joined Rooms</h2>
+  <ul id="joined-rooms"></ul>
+
+  <video id="local-video" width="400px" muted playsinline></video>
+  <div id="button-area"></div>
+  <div id="remote-media-area"></div>
+
+  <script type="module" src="main.js"></script>
+</body>
 </html>
+
+
