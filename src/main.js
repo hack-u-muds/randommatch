@@ -90,7 +90,7 @@ const decodeText = (encoded) => {
     const userName = userNameInput.value.trim();
 
     if (!gameName || !userName) {
-      alert("ゲーム名とユーザー名を入力してください！");
+      alert("ルーム名とユーザー名を入力してください！");
       return;
     }
 
@@ -203,5 +203,3 @@ const decodeText = (encoded) => {
     buttonArea.appendChild(leaveButton);
   
 })();
-
-
