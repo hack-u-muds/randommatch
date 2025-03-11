@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>マッチング結果</title>
+</head>
+<body>
+    <h1>マッチング中...</h1>
+    <p id="match-status">マッチングを探しています...</p>
+
+    <script>
+        const urlParams = new URLSearchParams(window.location.search);
+        const roomName = urlParams.get("room");
+
+        if (roomName) {
+            document.getElementById("match-status").textContent = `マッチング成功！ ルーム: ${roomName}`;
+            setTimeout(() => {
+                window.location.href = `call.html?room=${roomName}`;
+            }, 3000);
+        }
+    </script>
+</body>
+</html>

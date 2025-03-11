@@ -1,24 +1,34 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>SkyWay Tutorial</title>
-  </head>
-  <body>
-    <p>ID: <span id="my-id"></span></p>
-    <div>
-      room name: <input id="room-name" type="text" />
-      <button id="join">join</button>
-      <button id="leave">leave</button>
-    </div>
-    <div>
-      <button id="toggle-audio">マイクOFF</button>
-      <button id="toggle-video">カメラOFF</button>
-    </div>
-    <video id="local-video" width="400px" muted playsinline></video>
-    <div id="button-area"></div>
-    <div id="remote-media-area"></div>
-    <script type="module" src="main.js"></script>
-  </body>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>ゲームマッチング</title>
+</head>
+<body>
+    <h1>プレイするゲームを選択</h1>
+    <select id="game-select">
+        <option value="game1">ゲーム1</option>
+        <option value="game2">ゲーム2</option>
+        <option value="game3">ゲーム3</option>
+    </select>
+    <button id="match-button">マッチング開始</button>
+
+    <script>
+        document.getElementById("match-button").onclick = async () => {
+            const game = document.getElementById("game-select").value;
+            const response = await fetch("http://localhost:5001/match", {
+                method: "POST",
+                headers: { "Content-Type": "application/json" },
+                body: JSON.stringify({ game }),
+            });
+            const data = await response.json();
+            if (data.roomName) {
+                window.location.href = `match.html?room=${data.roomName}`;
+            } else {
+                alert("マッチング中です...");
+            }
+        };
+    </script>
+</body>
 </html>
