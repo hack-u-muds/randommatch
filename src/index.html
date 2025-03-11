@@ -1,26 +1,26 @@
 <!DOCTYPE html>
-<html>
+<html lang="ja">
 <head>
-  <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width" />
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
   <link rel="stylesheet" href="style.css">
-  <title>Game Voice Chat</title>
+  <title>ゲームボイスチャット</title>
 </head>
 <body>
   <p>ID: <span id="my-id"></span></p>
 
-  <h2>Join or Create a Room</h2>
-  <input type="text" id="game-name" placeholder="Enter game name" />
-  <input type="text" id="user-name" placeholder="Enter your name" />
-  <button id="create-room">Create Room</button>
+  <h2>ルームの作成または参加</h2>
+  <input type="text" id="game-name" placeholder="ゲーム名を入力" />
+  <input type="text" id="user-name" placeholder="名前を入力" />
+  <button id="create-room">ルームを作成</button>
 
-  <h2>Available Rooms</h2>
+  <h2>利用可能なルーム</h2>
   <ul id="room-list"></ul>
 
-  <h2>Currently Joined Room</h2>
+  <h2>参加中のルーム</h2>
   <p id="joined-room-name"></p>
 
-  <h2>Users in Room</h2>
+  <h2>ルームのユーザー</h2>
   <ul id="room-users"></ul>
 
   <video id="local-video" width="400px" muted playsinline></video>
@@ -30,4 +30,3 @@
   <script type="module" src="main.js"></script>
 </body>
 </html>
-
