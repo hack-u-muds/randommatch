@@ -37,7 +37,7 @@ const decodeText = (encoded) => {
   const joinedRoomName = document.getElementById("joined-room-name");
   const roomUsersList = document.getElementById("room-users");
   const roomList = document.getElementById("room-list");
-  const backendUrl = 'https://randommatch-2ddc53e2f1bd.herokuapp.com';
+
 
   let currentRoom = null;
   let currentMember = null;
