@@ -1,31 +1,31 @@
+/* --- Google Fonts の読み込み --- */
+@import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
+
+/* --- bodyのスタイル --- */
 body {
-  /* --- 他のスタイルはそのまま --- */
-  background-image: url('../picture/23218216.jpg'); /* 画像のパスを指定 */
-  background-size: cover; /* 背景画像を全体に表示 */
-}
-/* 全体のレイアウトを中央寄せ */
-body {
-  font-family: Arial, sans-serif;
+  font-family: 'RocknRoll One', '游ゴシック体', YuGothic, sans-serif;
   text-align: center;
   background-color: #f4f4f4;
   margin: 0;
   padding: 20px;
+  background-image: url('../picture/23218216.jpg'); /* 画像のパスを指定 */
+  background-size: cover; /* 背景画像を全体に表示 */
 }
 
-/* 見出しのデザイン */
+/* --- 見出しのデザイン --- */
 h2 {
   color: #333;
   margin-bottom: 10px;
 }
 
-/* IDの表示 */
+/* --- IDの表示 --- */
 p {
   font-weight: bold;
   font-size: 16px;
   color: #555;
 }
 
-/* 入力フォームとボタンのスタイル */
+/* --- 入力フォームとボタンのスタイル --- */
 input {
   padding: 10px;
   margin: 5px;
@@ -35,7 +35,7 @@ input {
   width: 250px;
 }
 
-/* ボタンの初期設定 */
+/* --- ボタンの初期設定 --- */
 button {
   padding: 10px 20px;
   margin: 10px;
@@ -47,7 +47,7 @@ button {
   transition: 0.3s; /* ホバーエフェクトのスムーズな変化 */
 }
 
-/* ルーム作成ボタンのスタイル */
+/* --- ルーム作成ボタンのスタイル --- */
 button:nth-of-type(1) { /* 1番目のボタン(ルーム作成ボタン)を選択 */
   background-color: #007bff; /* 初期色：青色 */
 }
@@ -56,7 +56,7 @@ button:nth-of-type(1):hover { /* 1番目のボタン(ルーム作成ボタン)�
   background-color: #0056b3; /* ホバー時：紫色 */
 }
 
-/* ルームリストのスタイル */
+/* --- ルームリストのスタイル --- */
 ul {
   list-style: none;
   padding: 0;
@@ -75,7 +75,7 @@ li {
   align-items: center;
 }
 
-/* ルームリスト内のボタン */
+/* --- ルームリスト内のボタン --- */
 li button {
   background-color: #28a745;
 }
@@ -84,7 +84,7 @@ li button:hover {
   background-color: #218838;
 }
 
-/* ユーザーリストのスタイル */
+/* --- ユーザーリストのスタイル --- */
 #room-users {
   margin-top: 10px;
 }
@@ -99,7 +99,7 @@ li button:hover {
   font-size: 14px;
 }
 
-/* ビデオのスタイル */
+/* --- ビデオのスタイル --- */
 #local-video {
   width: 300px;
   border-radius: 10px;
@@ -107,7 +107,7 @@ li button:hover {
   border: 3px solid #007bff;
 }
 
-/* リモートビデオエリア */
+/* --- リモートビデオエリア --- */
 #remote-media-area {
   display: flex;
   flex-wrap: wrap;
@@ -122,8 +122,7 @@ li button:hover {
   border: 2px solid #28a745;
 }
 
-/* ボタンエリア */
+/* --- ボタンエリア --- */
 #button-area {
   margin-top: 20px;
 }
-  
