@@ -1,0 +1,34 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width">
+    <link rel="stylesheet" href="style.css">
+    <title>ルーム募集掲示板</title>
+</head>
+<body>
+    <h1>ルーム募集掲示板</h1>
+
+    <!-- 🚀 ルーム募集投稿フォーム -->
+    <form action="/add" method="POST">
+        <input type="text" name="room_name" placeholder="ルーム名" required>
+        <textarea name="description" placeholder="募集要項を入力" required></textarea>
+        <button type="submit">投稿</button>
+    </form>
+
+    <h2>ルーム一覧</h2>
+    <ul>
+        {% for post in posts %}
+        <li>
+            <strong>{{ post.room_name }}</strong>: {{ post.description }}
+            <form action="/delete/{{ post.id }}" method="POST" style="display:inline;">
+                <button type="submit">削除</button>
+            </form>
+        </li>
+        {% endfor %}
+    </ul>
+
+    <!-- 🚀 `index.html` へ戻るリンク -->
+    <a href="http://localhost:1234">通話画面に移動</a>
+</body>
+</html>

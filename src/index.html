@@ -1,20 +1,33 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width" />
-    <title>SkyWay Tutorial</title>
-  </head>
-  <body>
-    <p>ID: <span id="my-id"></span></p>
-    <div>
-      room name: <input id="room-name" type="text" />
-      <button id="join">join</button>
-      <button id="leave">leave</button>
-    </div>
-    <video id="local-video" width="400px" muted playsinline></video>
-    <div id="button-area"></div>
-    <div id="remote-media-area"></div>
-    <script type="module" src="main.js"></script>
-  </body>
+<html lang="ja">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <link rel="stylesheet" href="./SkyWay.css">
+  <title>ゲームボイスチャット</title>
+</head>
+<body>
+  <p>ID: <span id="my-id"></span></p>
+
+  <h2>ルームの作成または参加</h2>
+  <input type="text" id="game-name" placeholder="ゲーム名を入力" />
+  <input type="text" id="user-name" placeholder="名前を入力" />
+  <button id="create-room">ルームを作成</button>
+
+
+
+  <h2>参加中のルーム</h2>
+  <p id="joined-room-name"></p>
+
+  <h2>ルームのユーザー</h2>
+  <ul id="room-users"></ul>
+  
+  <a href="http://127.0.0.1:5000/">掲示板ページへ移動</a>
+  
+  <video id="local-video" width="400px" muted playsinline></video>
+  <div id="button-area"></div>
+  <div id="remote-media-area"></div>
+
+  <script type="module" src="main.js"></script>
+</body>
 </html>
