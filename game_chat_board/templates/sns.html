@@ -3,13 +3,13 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width">
-    <link rel="stylesheet" href="style.css">
+    <link rel="stylesheet" href="{{ url_for('style_css') }}">
     <title>ルーム募集掲示板</title>
 </head>
 <body>
     <h1>ルーム募集掲示板</h1>
 
-    <!-- 🚀 ルーム募集投稿フォーム -->
+    <!-- ルーム募集投稿フォーム -->
     <form action="/add" method="POST">
         <input type="text" name="room_name" placeholder="ルーム名" required>
         <textarea name="description" placeholder="募集要項を入力" required></textarea>
@@ -28,7 +28,7 @@
         {% endfor %}
     </ul>
 
-    <!-- 🚀 `index.html` へ戻るリンク -->
+    <!-- `index.html` へ戻るリンク -->
     <a href="http://localhost:1234">通話画面に移動</a>
 </body>
 </html>

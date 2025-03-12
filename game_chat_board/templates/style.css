@@ -1,16 +1,23 @@
-/* 全体の基本スタイル */
+/* bodyのスタイル */
 body {
     font-family: Arial, sans-serif;
     background-color: #f8f9fa;
-    color: #333;
     margin: 0;
     padding: 20px;
-    text-align: center;
+    background-image: url('../picture2/131382.jpg'); /* 正しいパスに修正 */
+    background-size: cover; /* 背景画像を全体に表示 */
 }
 
 /* ヘッダーのスタイル */
 h1 {
     color: #007bff;
+    /* フォント設定は削除 */
+}
+
+/* ヘッダーのスタイル */
+h1 {
+    color: #007bff;
+    font-family: 'Cinzel Decorative', sans-serif; /* フォントの変更 */
 }
 
 /* フォームのスタイル */
