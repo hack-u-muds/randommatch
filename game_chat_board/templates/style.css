@@ -1,9 +1,14 @@
 /* bodyのスタイル */
 body {
-    font-family: Arial, sans-serif;
-    background-color: #8B4513; /* 背景色を土のような茶色に変更 */
+    font-family: sans-serif; /* 基本的にはシステムサンセリフフォント */
+    background-color: #8B4513; /* 背景色は土のような茶色 */
     margin: 0;
     padding: 20px;
+}
+
+/* フォントファミリーを適用する要素 */
+.font-change {
+    font-family: 'RocknRoll One', sans-serif; /* フォントファミリーを適用 */
 }
 
 /* ヘッダーのスタイル */
