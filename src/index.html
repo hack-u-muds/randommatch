@@ -1,38 +1,35 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width">
-  <link rel="stylesheet" href="./SkyWay.css">
-  <title>ゲームボイスチャット</title>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width">
+<link rel="stylesheet" href="./SkyWay.css">
+<title>ゲームボイスチャット</title>
 
-  <!-- ** Google Fonts の読み込み ** -->
-  <link rel="preconnect" href="https://fonts.googleapis.com">
-  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-  <link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap" rel="stylesheet">
+<!-- ** Google Fonts の読み込み ** -->
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap" rel="stylesheet">
 </head>
 <body>
-  <p>ID: <span id="my-id"></span></p>
+<p>ID: <span id="my-id"></span></p>
 
-  <h2>ルームの作成または参加</h2>
-  <input type="text" id="game-name" placeholder="ゲーム名を入力" />
-  <input type="text" id="user-name" placeholder="名前を入力" />
-  <button id="create-room">ルームを作成</button>
+<h2>ルームの作成または参加</h2>
+<input type="text" id="game-name" placeholder="ゲーム名を入力" />
+<input type="text" id="user-name" placeholder="名前を入力" />
+<button id="create-room">ルームを作成</button>
 
-  <h2>参加中のルーム</h2>
-  <p id="joined-room-name"></p>
+<h2>参加中のルーム</h2>
+<p id="joined-room-name"></p>
 
-  <h2>ルームのユーザー</h2>
-  <ul id="room-users"></ul>
-  
-  <a href="http://127.0.0.1:5000/">掲示板ページへ移動</a>
-  
-  <div id="button-area">
-    <!-- 画面共有ボタンを追加 -->
-    <button id="start-sharing">画面共有を開始</button>
-  </div>
-  <div id="remote-media-area"></div>
+<h2>ルームのユーザー</h2>
+<ul id="room-users"></ul>
 
-  <script type="module" src="main.js"></script>
+<a href="http://127.0.0.1:5000/">掲示板ページへ移動</a>
+
+<div id="button-area"></div>
+<div id="remote-media-area"></div>
+
+<script type="module" src="main.js"></script>
 </body>
 </html>
