@@ -27,7 +27,6 @@ const decodeText = (encoded) => {
 };
 
 (async () => {
-  // const localVideo = document.getElementById("local-video");  // ローカルビデオの参照を削除
   const buttonArea = document.getElementById("button-area");
   const remoteMediaArea = document.getElementById("remote-media-area");
   const myId = document.getElementById("my-id");
@@ -37,15 +36,13 @@ const decodeText = (encoded) => {
   const joinedRoomName = document.getElementById("joined-room-name");
   const roomUsersList = document.getElementById("room-users");
   const roomList = document.getElementById("room-list");
+  const startSharingButton = document.getElementById("start-sharing");  // 画面共有ボタン
 
   let currentRoom = null;
   let currentMember = null;
 
   // 🎤 音声ストリームの作成（ビデオの部分は削除）
   const { audio } = await SkyWayStreamFactory.createMicrophoneAudioStream();
-  // ローカルビデオは不要なのでコメントアウト
-  // video.attach(localVideo);
-  // await localVideo.play();
 
   const context = await SkyWayContext.Create(token);
 
@@ -139,6 +136,8 @@ const decodeText = (encoded) => {
     leaveButton.textContent = "部屋を退出";
     leaveButton.onclick = leaveRoom;
     buttonArea.appendChild(leaveButton);
+
+    startSharingButton.style.display = 'block';  // 画面共有ボタンの表示
   };
 
   const leaveRoom = async () => {
@@ -154,6 +153,7 @@ const decodeText = (encoded) => {
     roomUsersList.innerHTML = ""; // ✅ ユーザーリストをクリア
     buttonArea.replaceChildren();
     remoteMediaArea.replaceChildren();
+    startSharingButton.style.display = 'none';  // 画面共有ボタンを非表示
   };
 
   const updateUserList = () => {
@@ -191,4 +191,29 @@ const decodeText = (encoded) => {
   const removeStream = (publicationId) => {
     document.getElementById(`media-${publicationId}`)?.remove();
   };
+
+  // 画面共有機能の追加
+  startSharingButton.onclick = async () => {
+    try {
+      const { video } = await SkyWayStreamFactory.createDisplayStreams({
+        video: {
+          displaySurface: 'monitor'  // 画面全体の映像を取得
+        },
+        audio: true  // 音声も取得する
+      });
+
+      // 画面共有ストリームを公開
+      await currentMember.publish(video);
+
+      const sharedVideo = document.createElement("video");
+      sharedVideo.playsInline = true;
+      sharedVideo.autoplay = true;
+      sharedVideo.id = 'shared-video';
+      video.attach(sharedVideo);
+      remoteMediaArea.appendChild(sharedVideo);
+    } catch (error) {
+      console.error('画面共有の開始に失敗しました:', error);
+    }
+  };
+
 })();
