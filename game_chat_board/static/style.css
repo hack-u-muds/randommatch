@@ -1,0 +1,156 @@
+/* --- Google Fonts の読み込み --- */
+@import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
+
+/* --- bodyのスタイル --- */
+body {
+  font-family: 'RocknRoll One', '游ゴシック体', YuGothic, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f4;
+  background-image: url('./images/131382.jpg'); /* 画像のパスを指定 */
+  background-size: cover; /* 背景画像を全体に表示 */
+  background-attachment: fixed; /* 背景画像を固定 */
+  background-repeat: no-repeat; /* 重複を防ぐ */
+  background-position: center; /* 中央に配置 */
+  position: relative; /* 子要素の絶対配置を可能にする */
+}
+
+
+
+/* --- ヒエラルキーのコンテンツ --- */
+.content {
+  position: relative;
+  z-index: 2;
+}
+
+/* --- 見出しのデザイン --- */
+h1, h2 {
+  color: #fff;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 文字のシャドウ効果 */
+}
+
+/* --- IDの表示 --- */
+p {
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 文字のシャドウ効果 */
+}
+
+/* --- 入力フォームとボタンのスタイル --- */
+input, textarea {
+  width: 100%;
+  padding: 10px;
+  margin: 5px 0;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* --- フォームのスタイル --- */
+form {
+  background-color: #ffffff;
+  padding: 15px;
+  border-radius: 8px;
+  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+  display: inline-block;
+  width: 80%;
+  max-width: 500px;
+  margin: 20px auto;
+  text-align: left;
+}
+
+/* --- ルームリストのスタイル --- */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 10px;
+  background: white;
+  margin: 5px auto;
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+li strong {
+  color: #007bff;
+}
+
+/* --- ルームリスト内のボタン --- */
+li button {
+  background-color: #28a745;
+}
+
+li button:hover {
+  background-color: #218838;
+}
+
+/* --- ユーザーリストのスタイル --- */
+#room-users {
+  margin-top: 10px;
+}
+
+#room-users li {
+  padding: 8px;
+  background: #f8f9fa;
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin: 5px auto;
+  font-size: 14px;
+}
+
+/* --- ボタンエリア --- */
+#button-area {
+  margin-top: 20px;
+}
+
+/* --- 掲示板ページへ移動ボタンのスタイル --- */
+#move-forum {
+  background-color: #ff5722; /* ボタンの色をオレンジに */
+}
+
+#move-forum:hover {
+  background-color: #e64a19; /* ホバー時の色を濃いオレンジに */
+}
+
+/* 戻るリンクのスタイル */
+a {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+a:hover {
+  background-color: #218838;
+}
