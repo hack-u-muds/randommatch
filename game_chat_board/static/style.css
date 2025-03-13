@@ -18,17 +18,20 @@ body {
 
 
 
+
+
 /* --- ヒエラルキーのコンテンツ --- */
 .content {
-  position: relative;
-  z-index: 2;
+  width: 90%;
+  max-width: 800px; /* 最大幅を制限 */
+  margin: 0 auto; /* 中央配置 */
 }
 
 /* --- 見出しのデザイン --- */
 h1, h2 {
   color: #fff;
   margin-bottom: 10px;
-  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 文字のシャドウ効果 */
+  text-shadow: 2px 2px 4px rgba(7, 7, 7, 0.7); /* 文字のシャドウ効果 */
 }
 
 /* --- IDの表示 --- */
@@ -40,43 +43,99 @@ p {
 }
 
 /* --- 入力フォームとボタンのスタイル --- */
-input, textarea {
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 中央揃え */
   width: 100%;
-  padding: 10px;
-  margin: 5px 0;
-  border: 1px solid #ccc;
-  border-radius: 5px;
-  font-size: 16px;
 }
 
-button {
-  padding: 10px 20px;
-  margin: 10px;
+.input-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  width: 80%;
+  max-width: 500px;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+/* --- スマホ対応のレスポンシブデザイン --- */
+@media screen and (max-width: 600px) {
+  .input-container {
+    width: 95%;
+    padding: 10px;
+  }
+}
+
+/* --- ルーム名・募集要項のラベルデザイン（装飾をシンプルに） --- */
+.input-container label {
   font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* --- ルーム名・募集要項の入力欄のデザイン --- */
+.input-container input, 
+.input-container textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: white;
+  color: #333; /* テキストの色を黒に変更 */
+  transition: 0.3s;
+  box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+/* --- 入力欄フォーカス時の強調 --- */
+.input-container input:focus,
+.input-container textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: white;
+  box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.4);
+}
+
+/* --- テキストエリアのサイズ調整 --- */
+.input-container textarea {
+  min-height: 120px;
+  resize: vertical; /* ユーザーがサイズ変更可能 */
+}
+
+/* --- 投稿ボタンを入力欄の下に配置 --- */
+button {
+  width: 200px; /* 固定サイズで幅を統一 */
+  height: 50px; /* 高さを固定 */
+  font-size: 18px;
+  font-weight: bold;
   background-color: #007bff;
   color: white;
   border: none;
-  border-radius: 5px;
+  border-radius: 8px;
   cursor: pointer;
   transition: 0.3s;
+  
+  display: flex; /* フレックスボックスで中央配置 */
+  align-items: center; /* 縦方向の中央揃え */
+  justify-content: center; /* 横方向の中央揃え */
+  text-align: center; /* テキストの中央揃え */
 }
+
 
 button:hover {
   background-color: #0056b3;
 }
 
-/* --- フォームのスタイル --- */
-form {
-  background-color: #ffffff;
-  padding: 15px;
-  border-radius: 8px;
-  box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
-  display: inline-block;
-  width: 80%;
-  max-width: 500px;
-  margin: 20px auto;
-  text-align: left;
-}
+
 
 /* --- ルームリストのスタイル --- */
 ul {
@@ -86,27 +145,51 @@ ul {
 }
 
 li {
-  padding: 10px;
+  padding: 15px;
   background: white;
-  margin: 5px auto;
-  width: 300px;
+  margin: 10px auto;
+  width: 800px;
   border-radius: 5px;
   border: 1px solid #ddd;
+  text-align: left;
   display: flex;
-  justify-content: space-between;
-  align-items: center;
+  flex-direction: column; 
 }
 
-li strong {
-  color: #007bff;
-}
+/* --- ルーム名のデザイン --- */
 
-/* --- ルームリスト内のボタン --- */
-li button {
-  background-color: #28a745;
-}
+
+
+
 
 li button:hover {
+  background-color: #218838;
+}
+.room-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #736d6d; 
+  margin-bottom: 10px;
+}
+
+/* --- 募集要項のデザイン --- */
+.room-description {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd; /* 募集要項と削除ボタンの区切り線 */
+}
+
+/* --- 削除ボタンを独立したブロックに配置 --- */
+.room-delete {
+  text-align: right;
+}
+
+
+.room-delete button:hover {
   background-color: #218838;
 }
 
