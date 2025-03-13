@@ -1,0 +1,144 @@
+/* --- Google Fonts の読み込み --- */
+@import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
+
+/* 全体の基本スタイル */
+body {
+    font-family: 'RocknRoll One', Arial, sans-serif;
+    background-color: #f8f9fa;
+    color: #333;
+    margin: 0;
+    padding: 20px;
+    text-align: center;
+    background-image: url('./picture/23218216.jpg'); /* 新しい画像のパスを指定 */
+    background-size: cover; /* 背景画像を全体に表示 */
+    background-attachment: fixed; /* 背景画像を固定 */
+    background-repeat: no-repeat; /* 重複を防ぐ */
+    background-position: center; /* 中央に配置 */
+    position: relative; /* 子要素の絶対配置を可能にする */
+    height: 100vh; /* ビューポートの高さに合わせる */
+}
+
+/* --- 背景にオーバーレイを追加 --- */
+.overlay {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.5); /* 半透明の黒いオーバーレイ */
+    z-index: 1; /* 他の要素より前に表示する */
+}
+
+/* --- コンテンツのスタイル --- */
+.content {
+    position: relative;
+    z-index: 2; /* オーバーレイより前に表示する */
+    text-align: left; /* 左揃え */
+    max-width: 600px; /* 最大横幅を設定 */
+    margin: 0 auto; /* 中央に配置 */
+}
+
+/* ヘッダーのスタイル */
+h1 {
+    color: #007bff;
+}
+
+/* フォームのスタイル */
+form {
+    background-color: #ffffff;
+    padding: 15px;
+    border-radius: 8px;
+    box-shadow: 0px 2px 5px rgba(0, 0, 0, 0.2);
+    display: flex;
+    flex-direction: column;
+    width: 100%; /* フォームの幅を親要素に合わせる */
+    max-width: 500px;
+    margin: 20px auto; /* 中央に配置 */
+    text-align: left;
+}
+
+input, textarea {
+    width: calc(100% - 20px); /* 内側の余白を考慮して幅を調整 */
+    padding: 10px;
+    margin: 10px 0;
+    border: 1px solid #ccc;
+    border-radius: 5px;
+    font-size: 16px;
+    box-sizing: border-box; /* パディングとボーダーを含めてサイズを計算 */
+}
+
+textarea {
+    height: 100px;
+}
+
+/* ボタンのスタイル */
+button {
+    background-color: #007bff;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    transition: background-color 0.3s;
+    align-self: flex-start; /* ボタンを左揃え */
+    margin-top: 10px;
+}
+
+button:hover {
+    background-color: #0056b3;
+}
+
+/* ルーム一覧のスタイル */
+ul {
+    list-style-type: none;
+    padding: 0;
+    max-width: 600px;
+    margin: 20px auto;
+    text-align: left;
+}
+
+li {
+    background-color: #ffffff;
+    padding: 10px;
+    margin: 5px 0;
+    border-radius: 5px;
+    box-shadow: 0px 2px 4px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    font-size: 1.25rem; /* フォントサイズを大きく */
+}
+
+li strong {
+    color: #007bff;
+}
+
+/* 削除ボタンのスタイル */
+form[action^="/delete"] button {
+    background-color: #dc3545;
+    padding: 5px 10px;
+    border-radius: 5px;
+    font-size: 14px;
+}
+
+form[action^="/delete"] button:hover {
+    background-color: #a71d2a;
+}
+
+/* 戻るリンクのスタイル */
+#move-call-page {
+    background-color: #28a745;
+    color: white;
+    border: none;
+    padding: 10px 15px;
+    border-radius: 5px;
+    cursor: pointer;
+    font-size: 16px;
+    margin-top: 20px;
+    transition: background-color 0.3s;
+}
+
+#move-call-page:hover {
+    background-color: #218838;
+}
