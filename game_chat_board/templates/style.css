@@ -1,11 +1,9 @@
 /* bodyのスタイル */
 body {
     font-family: Arial, sans-serif;
-    background-color: #f8f9fa;
+    background-color: #8B4513; /* 背景色を土のような茶色に変更 */
     margin: 0;
     padding: 20px;
-    background-image: url('../picture2/131382.jpg'); /* 正しいパスに修正 */
-    background-size: cover; /* 背景画像を全体に表示 */
 }
 
 /* ヘッダーのスタイル */

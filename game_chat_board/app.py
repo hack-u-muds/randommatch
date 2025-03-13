@@ -51,10 +51,10 @@ def delete_post(post_id):
     
     return redirect(url_for("sns"))
 
-# 読み込むためのカスタムルート
-@app.route('/templates/style.css')
+# カスタムルート
+@app.route('/style.css')
 def style_css():
-    return send_from_directory(os.path.join('templates'), 'style.css')
+    return send_from_directory(os.path.join(app.root_path, 'templates'), 'style.css')
 
 if __name__ == "__main__":
     app.run(debug=True)
