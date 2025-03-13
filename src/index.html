@@ -1,35 +1,46 @@
 <!DOCTYPE html>
 <html lang="ja">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width">
-<link rel="stylesheet" href="./SkyWay.css">
-<title>ゲームボイスチャット</title>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width">
+  <title>ゲームボイスチャット</title>
 
-<!-- ** Google Fonts の読み込み ** -->
-<link rel="preconnect" href="https://fonts.googleapis.com">
-<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-<link href="https://fonts.googleapis.com/css2?family=Cinzel+Decorative&display=swap" rel="stylesheet">
+  <!-- ** Google Fonts の読み込み ** -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap" rel="stylesheet">
+
+  <!-- ** CSSの読み込み ** -->
+  <link rel="stylesheet" href="./SkyWay.css">
 </head>
 <body>
-<p>ID: <span id="my-id"></span></p>
+  <div class="overlay"></div>
+  <div class="content">
+    <!-- ID表示 -->
+    <p>ID: <span id="my-id"></span></p>
 
-<h2>ルームの作成または参加</h2>
-<input type="text" id="game-name" placeholder="ゲーム名を入力" />
-<input type="text" id="user-name" placeholder="名前を入力" />
-<button id="create-room">ルームを作成</button>
+    <!-- ルームの作成または参加 -->
+    <h2>ルームの作成または参加</h2>
+    <input type="text" id="game-name" placeholder="ゲーム名を入力" />
+    <input type="text" id="user-name" placeholder="名前を入力" />
+    <button id="create-room">ルームを作成</button>
 
-<h2>参加中のルーム</h2>
-<p id="joined-room-name"></p>
+    <!-- 参加中のルーム -->
+    <h2>参加中のルーム</h2>
+    <p id="joined-room-name"></p>
 
-<h2>ルームのユーザー</h2>
-<ul id="room-users"></ul>
+    <!-- ルームユーザー -->
+    <h2>ルームのユーザー</h2>
+    <ul id="room-users"></ul>
 
-<a href="http://127.0.0.1:5000/">掲示板ページへ移動</a>
+    <!-- 掲示板ページ移動ボタン -->
+    <button id="move-forum" onclick="location.href='http://127.0.0.1:5000/'">掲示板ページへ移動</button>
 
-<div id="button-area"></div>
-<div id="remote-media-area"></div>
+    <!-- ボタンエリア -->
+    <div id="button-area"></div>
+  </div>
 
-<script type="module" src="main.js"></script>
+  <!-- スクリプトの読み込み -->
+  <script type="module" src="main.js"></script>
 </body>
 </html>

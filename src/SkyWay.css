@@ -3,118 +3,130 @@
 
 /* --- bodyのスタイル --- */
 body {
-font-family: 'RocknRoll One', '游ゴシック体', YuGothic, sans-serif;
-text-align: center;
-background-color: #f4f4f4;
-margin: 0;
-padding: 20px;
-background-image: url('../picture/23218216.jpg'); /* 画像のパスを指定 */
-background-size: cover; /* 背景画像を全体に表示 */
+  font-family: 'RocknRoll One', '游ゴシック体', YuGothic, sans-serif;
+  text-align: center;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+  background-image: url('../picture/23218216.jpg'); /* 画像のパスを指定 */
+  background-size: cover; /* 背景画像を全体に表示 */
+  background-attachment: fixed; /* 背景画像を固定 */
+  background-repeat: no-repeat; /* 重複を防ぐ */
+  background-position: center; /* 中央に配置 */
+  position: relative; /* 子要素の絶対配置を可能にする */
+}
+
+/* --- 背景にオーバーレイを追加 --- */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); /* 半透明の黒いオーバーレイ */
+  z-index: 1; /* 他の要素より前に表示する */
+}
+
+/* --- ヒエラルキーのコンテンツ --- */
+.content {
+  position: relative;
+  z-index: 2; /* オーバーレイより前に表示する */
 }
 
 /* --- 見出しのデザイン --- */
 h2 {
-color: #333;
-margin-bottom: 10px;
+  color: #fff;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 文字のシャドウ効果 */
 }
 
 /* --- IDの表示 --- */
 p {
-font-weight: bold;
-font-size: 16px;
-color: #555;
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 文字のシャドウ効果 */
 }
 
 /* --- 入力フォームとボタンのスタイル --- */
 input {
-padding: 10px;
-margin: 5px;
-border: 1px solid #ccc;
-border-radius: 5px;
-font-size: 16px;
-width: 250px;
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 250px;
 }
 
-/* --- ボタンの初期設定 --- */
 button {
-padding: 10px 20px;
-margin: 10px;
-font-size: 16px;
-color: white;
-border: none;
-border-radius: 5px;
-cursor: pointer;
-transition: 0.3s; /* ホバーエフェクトのスムーズな変化 */
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
 }
 
-/* --- ルーム作成ボタンのスタイル --- */
-button:nth-of-type(1) { /* 1番目のボタン(ルーム作成ボタン)を選択 */
-background-color: #007bff; /* 初期色：青色 */
-}
-
-button:nth-of-type(1):hover { /* 1番目のボタン(ルーム作成ボタン)にホバー */
-background-color: #0056b3; /* ホバー時：紫色 */
+button:hover {
+  background-color: #0056b3;
 }
 
 /* --- ルームリストのスタイル --- */
 ul {
-list-style: none;
-padding: 0;
-margin: 0;
+  list-style: none;
+  padding: 0;
+  margin: 0;
 }
 
 li {
-padding: 10px;
-background: white;
-margin: 5px auto;
-width: 300px;
-border-radius: 5px;
-border: 1px solid #ddd;
-display: flex;
-justify-content: space-between;
-align-items: center;
+  padding: 10px;
+  background: white;
+  margin: 5px auto;
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
 }
 
 /* --- ルームリスト内のボタン --- */
 li button {
-background-color: #28a745;
+  background-color: #28a745;
 }
 
 li button:hover {
-background-color: #218838;
+  background-color: #218838;
 }
 
 /* --- ユーザーリストのスタイル --- */
 #room-users {
-margin-top: 10px;
+  margin-top: 10px;
 }
 
 #room-users li {
-padding: 8px;
-background: #f8f9fa;
-width: 250px;
-border-radius: 5px;
-border: 1px solid #ddd;
-margin: 5px auto;
-font-size: 14px;
-}
-
-/* --- リモートビデオエリア --- */
-#remote-media-area {
-display: flex;
-flex-wrap: wrap;
-justify-content: center;
-margin-top: 20px;
-}
-
-#remote-media-area video,
-#remote-media-area audio {
-margin: 5px;
-border-radius: 10px;
-border: 2px solid #28a745;
+  padding: 8px;
+  background: #f8f9fa;
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin: 5px auto;
+  font-size: 14px;
 }
 
 /* --- ボタンエリア --- */
 #button-area {
-margin-top: 20px;
+  margin-top: 20px;
+}
+
+/* --- 掲示板ページへ移動ボタンのスタイル --- */
+#move-forum {
+  background-color: #ff5722; /* ボタンの色をオレンジに */
+}
+
+#move-forum:hover {
+  background-color: #e64a19; /* ホバー時の色を濃いオレンジに */
 }
