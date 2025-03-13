@@ -154,7 +154,6 @@ const decodeText = (encoded) => {
     const toggleVideoButton = document.getElementById("toggle-video");
     if (toggleVideoButton) {
       toggleVideoButton.textContent = "ビデオをオフ";
-      buttonArea.appendChild(toggleVideoButton); // ルーム退出後もビデオオン/オフボタンを再表示する
     }
   };
 
@@ -172,7 +171,7 @@ const decodeText = (encoded) => {
   };
 
   const subscribeAndAttach = async (publication) => {
-    if (!currentMember) return; // currentMemberがnullでないことを確認
+    if (!currentMember) return;
 
     const memberId = publication.publisher.id;
     const { stream } = await currentMember.subscribe(publication.id);
@@ -190,8 +189,6 @@ const decodeText = (encoded) => {
   };
 
   const subscribeToNewMembers = (room) => {
-    if (!currentMember) return;
-
     room.publications.forEach(publication => {
       if (publication.publisher.id !== currentMember.id && !document.getElementById(`media-${publication.id}`)) {
         subscribeAndAttach(publication);
@@ -215,11 +212,6 @@ const decodeText = (encoded) => {
     }
   };
 
-  const toggleVideoButton = document.createElement("button");
-  toggleVideoButton.id = "toggle-video";
-  toggleVideoButton.textContent = "ビデオをオフ";
+  const toggleVideoButton = document.getElementById("toggle-video");
   toggleVideoButton.onclick = toggleVideo;
-  buttonArea.appendChild(toggleVideoButton);
-
-  updateRoomList();
 })();
