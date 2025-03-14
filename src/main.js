@@ -122,11 +122,11 @@ const decodeText = (encoded) => {
     updateUserList();
     room.onMemberJoined.add(() => {
       updateUserList();
-      subscribeToNewMembers(room);
+      subscribeToAllMembers(room);
     });
     room.onMemberLeft.add(updateUserList);
 
-    room.publications.forEach(subscribeAndAttach);
+    subscribeToAllMembers(room);
     room.onStreamPublished.add((e) => subscribeAndAttach(e.publication));
     room.onStreamUnpublished.add((e) => removeStream(e.publication.id));
 
@@ -171,7 +171,7 @@ const decodeText = (encoded) => {
   };
 
   const subscribeAndAttach = async (publication) => {
-    if (!currentMember) return;
+    if (!currentMember || publication.publisher.id === currentMember.id) return; // 自分自身のストリームはスキップ
 
     const memberId = publication.publisher.id;
     const { stream } = await currentMember.subscribe(publication.id);
@@ -188,7 +188,7 @@ const decodeText = (encoded) => {
     }
   };
 
-  const subscribeToNewMembers = (room) => {
+  const subscribeToAllMembers = (room) => {
     room.publications.forEach(publication => {
       if (publication.publisher.id !== currentMember.id && !document.getElementById(`media-${publication.id}`)) {
         subscribeAndAttach(publication);
