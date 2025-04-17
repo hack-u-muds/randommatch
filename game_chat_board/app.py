@@ -1,9 +1,14 @@
-from flask import Flask, render_template, request, redirect, url_for
+from flask import Flask, render_template, request, redirect, url_for, send_from_directory
 from flask_sqlalchemy import SQLAlchemy
+import os
 
 app = Flask(__name__)
+
+# データベースのURIを設定
 app.config["SQLALCHEMY_DATABASE_URI"] = "sqlite:///database.db"
 app.config["SQLALCHEMY_TRACK_MODIFICATIONS"] = False
+
+# SQLAlchemyのインスタンスを作成
 db = SQLAlchemy(app)
 
 # 📌 投稿モデル（ルーム名と募集要項を保存）
@@ -45,6 +50,11 @@ def delete_post(post_id):
         db.session.commit()
     
     return redirect(url_for("sns"))
+
+# カスタムルート
+@app.route('/style.css')
+def style_css():
+    return send_from_directory(os.path.join(app.root_path, 'templates'), 'style.css')
 
 if __name__ == "__main__":
     app.run(debug=True)

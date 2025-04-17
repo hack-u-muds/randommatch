@@ -1,6 +1,5 @@
 import { nowInSec, SkyWayAuthToken, SkyWayContext, SkyWayRoom, SkyWayStreamFactory, uuidV4 } from "@skyway-sdk/room";
 
-// SkyWayのトークン設定
 const token = new SkyWayAuthToken({
   jti: uuidV4(),
   iat: nowInSec(),
@@ -12,7 +11,6 @@ const token = new SkyWayAuthToken({
   }
 }).encode("/Ic9tG1SNhXYfESb3aPLBl8UdXZInffQrN5yqwir+yE=");
 
-// ✅ 日本語のときだけ Base64 エンコード
 const encodeText = (text) => {
   const containsJapanese = /[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u.test(text);
   return containsJapanese ? btoa(unescape(encodeURIComponent(text))) : text;
@@ -29,8 +27,6 @@ const decodeText = (encoded) => {
 (async () => {
   const localVideo = document.getElementById("local-video");
   const buttonArea = document.getElementById("button-area");
-  const remoteMediaArea = document.getElementById("remote-media-area");
-  const myId = document.getElementById("my-id");
   const gameInput = document.getElementById("game-name");
   const userNameInput = document.getElementById("user-name");
   const createRoomButton = document.getElementById("create-room");
@@ -38,12 +34,14 @@ const decodeText = (encoded) => {
   const roomUsersList = document.getElementById("room-users");
   const roomList = document.getElementById("room-list");
 
-
   let currentRoom = null;
   let currentMember = null;
+  let videoEnabled = true;
+  let videoTrack = null;
 
   // 🎥 音声・ビデオストリームの作成
   const { audio, video } = await SkyWayStreamFactory.createMicrophoneAudioAndCameraStream();
+  videoTrack = video.track;
   video.attach(localVideo);
   await localVideo.play();
 
@@ -53,17 +51,17 @@ const decodeText = (encoded) => {
   const updateRoomList = async () => {
     roomList.innerHTML = ""; // 既存のリストをクリア
     const rooms = await SkyWayRoom.List(context);
-  
+
     rooms.forEach(room => {
       const decodedName = decodeText(room.name);
       const listItem = document.createElement("li");
       listItem.textContent = decodedName;
-  
+
       // 入室ボタン
       const joinButton = document.createElement("button");
       joinButton.textContent = "入室";
       joinButton.onclick = () => joinRoom(room.name, userNameInput.value.trim());
-  
+
       // 退出ボタン
       const leaveButton = document.createElement("button");
       leaveButton.textContent = "退出";
@@ -74,13 +72,12 @@ const decodeText = (encoded) => {
           alert("この部屋には入室していません。");
         }
       };
-  
+
       listItem.appendChild(joinButton);
       listItem.appendChild(leaveButton);
       roomList.appendChild(listItem);
     });
   };
-  
 
   updateRoomList();
   setInterval(updateRoomList, 5000);
@@ -105,64 +102,66 @@ const decodeText = (encoded) => {
       alert("ユーザー名を入力してください！");
       return;
     }
-  
+    
     if (currentRoom) {
       alert("既に部屋に入っています。退出してから新しい部屋に入ってください。");
       return;
     }
-  
+
     const room = await SkyWayRoom.FindOrCreate(context, { type: "sfu", name: roomName });
     const me = await room.join({ name: userName });
-  
+
     currentRoom = room;
     currentMember = me;
-    myId.textContent = me.id;
+    document.getElementById("my-id").textContent = me.id;
     joinedRoomName.textContent = `参加中の部屋: ${decodeText(roomName)}`;
-  
+
     await me.publish(audio);
     await me.publish(video);
-  
-    // ✅ ユーザーリストを更新
+
     updateUserList();
-  
-    // ✅ 他のユーザーが入室・退出したときにリストを更新
-    room.onMemberJoined.add(() => updateUserList());
-    room.onMemberLeft.add(({ member }) => {
-      document.getElementById(`user-${member.id}`)?.remove();
+    room.onMemberJoined.add(() => {
+      updateUserList();
+      subscribeToAllMembers(room);
     });
-  
-    // 🎙 ストリームの購読処理
-    room.publications.forEach(subscribeAndAttach);
+    room.onMemberLeft.add(updateUserList);
+
+    subscribeToAllMembers(room);
     room.onStreamPublished.add((e) => subscribeAndAttach(e.publication));
     room.onStreamUnpublished.add((e) => removeStream(e.publication.id));
-  
-    // 🔴 退出ボタンの追加
+
     const leaveButton = document.createElement("button");
     leaveButton.textContent = "部屋を退出";
     leaveButton.onclick = leaveRoom;
     buttonArea.appendChild(leaveButton);
   };
-  
-  
+
   const leaveRoom = async () => {
     if (!currentRoom) return;
-  
+
     await currentMember.leave();
     await currentRoom.dispose();
     currentRoom = null;
     currentMember = null;
-  
-    myId.textContent = "";
+
+    document.getElementById("my-id").textContent = "";
     joinedRoomName.textContent = "";
-    roomUsersList.innerHTML = ""; // ✅ ユーザーリストをクリア
-    buttonArea.replaceChildren();
-    remoteMediaArea.replaceChildren();
+    roomUsersList.innerHTML = "";
+    buttonArea.innerHTML = ""; // ルーム退出ボタンを削除
+    document.querySelectorAll("[id^=media-]").forEach(element => element.remove());
+
+    // ビデオオン/オフボタンのテキストをリセット
+    const toggleVideoButton = document.getElementById("toggle-video");
+    if (toggleVideoButton) {
+      toggleVideoButton.textContent = "ビデオをオフ";
+    }
   };
+
   const updateUserList = () => {
     if (!currentRoom) return;
-  
-    roomUsersList.innerHTML = ""; // リストをクリア
-  
+
+    roomUsersList.innerHTML = "";
+
     currentRoom.members.forEach(member => {
       const listItem = document.createElement("li");
       listItem.textContent = decodeText(member.name) || `User (${member.id})`;
@@ -170,37 +169,49 @@ const decodeText = (encoded) => {
       roomUsersList.appendChild(listItem);
     });
   };
-    
+
   const subscribeAndAttach = async (publication) => {
-    if (publication.publisher.id === currentMember.id) return; // 自分のストリームは無視
-  
+    if (!currentMember || publication.publisher.id === currentMember.id) return; // 自分自身のストリームはスキップ
+
+    const memberId = publication.publisher.id;
     const { stream } = await currentMember.subscribe(publication.id);
-  
-    let newMedia;
-    if (stream.track.kind === "video") {
-      newMedia = document.createElement("video");
+
+    const memberListItem = document.getElementById(`user-${memberId}`);
+    if (memberListItem) {
+      const newMedia = document.createElement(publication.contentType === "video" ? "video" : "audio");
       newMedia.playsInline = true;
       newMedia.autoplay = true;
-    } else if (stream.track.kind === "audio") {
-      newMedia = document.createElement("audio");
       newMedia.controls = true;
-      newMedia.autoplay = true;
-    }
-  
-    if (newMedia) {
       newMedia.id = `media-${publication.id}`;
       stream.attach(newMedia);
-      remoteMediaArea.appendChild(newMedia);
+      memberListItem.appendChild(newMedia);
     }
   };
-  
-  // ストリーム削除
+
+  const subscribeToAllMembers = (room) => {
+    room.publications.forEach(publication => {
+      if (publication.publisher.id !== currentMember.id && !document.getElementById(`media-${publication.id}`)) {
+        subscribeAndAttach(publication);
+      }
+    });
+  };
+
   const removeStream = (publicationId) => {
     document.getElementById(`media-${publicationId}`)?.remove();
   };
-    
-  
 
-    buttonArea.appendChild(leaveButton);
-  
+  const toggleVideo = () => {
+    if (videoEnabled) {
+      videoTrack.enabled = false;
+      videoEnabled = false;
+      document.getElementById("toggle-video").textContent = "ビデオをオン";
+    } else {
+      videoTrack.enabled = true;
+      videoEnabled = true;
+      document.getElementById("toggle-video").textContent = "ビデオをオフ";
+    }
+  };
+
+  const toggleVideoButton = document.getElementById("toggle-video");
+  toggleVideoButton.onclick = toggleVideo;
 })();

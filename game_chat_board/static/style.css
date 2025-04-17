@@ -1,0 +1,239 @@
+/* --- Google Fonts の読み込み --- */
+@import url('https://fonts.googleapis.com/css2?family=RocknRoll+One&display=swap');
+
+/* --- bodyのスタイル --- */
+body {
+  font-family: 'RocknRoll One', '游ゴシック体', YuGothic, sans-serif;
+  text-align: center;
+  margin: 0;
+  padding: 20px;
+  background-color: #f4f4f4;
+  background-image: url('./images/131382.jpg'); /* 画像のパスを指定 */
+  background-size: cover; /* 背景画像を全体に表示 */
+  background-attachment: fixed; /* 背景画像を固定 */
+  background-repeat: no-repeat; /* 重複を防ぐ */
+  background-position: center; /* 中央に配置 */
+  position: relative; /* 子要素の絶対配置を可能にする */
+}
+
+
+
+
+
+/* --- ヒエラルキーのコンテンツ --- */
+.content {
+  width: 90%;
+  max-width: 800px; /* 最大幅を制限 */
+  margin: 0 auto; /* 中央配置 */
+}
+
+/* --- 見出しのデザイン --- */
+h1, h2 {
+  color: #fff;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(7, 7, 7, 0.7); /* 文字のシャドウ効果 */
+}
+
+/* --- IDの表示 --- */
+p {
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); /* 文字のシャドウ効果 */
+}
+
+/* --- 入力フォームとボタンのスタイル --- */
+
+form {
+  display: flex;
+  flex-direction: column;
+  align-items: center; /* 中央揃え */
+  width: 100%;
+}
+
+.input-container {
+  background-color: white;
+  padding: 20px;
+  border-radius: 10px;
+  box-shadow: 0px 4px 10px rgba(0, 0, 0, 0.15);
+  width: 80%;
+  max-width: 500px;
+  margin-bottom: 15px;
+  text-align: left;
+}
+
+/* --- スマホ対応のレスポンシブデザイン --- */
+@media screen and (max-width: 600px) {
+  .input-container {
+    width: 95%;
+    padding: 10px;
+  }
+}
+
+/* --- ルーム名・募集要項のラベルデザイン（装飾をシンプルに） --- */
+.input-container label {
+  font-size: 16px;
+  font-weight: bold;
+  color: #333;
+  display: block;
+  margin-bottom: 8px;
+}
+
+/* --- ルーム名・募集要項の入力欄のデザイン --- */
+.input-container input, 
+.input-container textarea {
+  width: 100%;
+  padding: 12px;
+  margin-bottom: 10px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  font-size: 16px;
+  box-sizing: border-box;
+  background-color: white;
+  color: #333; /* テキストの色を黒に変更 */
+  transition: 0.3s;
+  box-shadow: inset 0px 2px 5px rgba(0, 0, 0, 0.1);
+}
+
+
+/* --- 入力欄フォーカス時の強調 --- */
+.input-container input:focus,
+.input-container textarea:focus {
+  outline: none;
+  border-color: #007bff;
+  background-color: white;
+  box-shadow: 0px 0px 8px rgba(0, 123, 255, 0.4);
+}
+
+/* --- テキストエリアのサイズ調整 --- */
+.input-container textarea {
+  min-height: 120px;
+  resize: vertical; /* ユーザーがサイズ変更可能 */
+}
+
+/* --- 投稿ボタンを入力欄の下に配置 --- */
+button {
+  width: 200px; /* 固定サイズで幅を統一 */
+  height: 50px; /* 高さを固定 */
+  font-size: 18px;
+  font-weight: bold;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: 0.3s;
+  
+  display: flex; /* フレックスボックスで中央配置 */
+  align-items: center; /* 縦方向の中央揃え */
+  justify-content: center; /* 横方向の中央揃え */
+  text-align: center; /* テキストの中央揃え */
+}
+
+
+button:hover {
+  background-color: #0056b3;
+}
+
+
+
+/* --- ルームリストのスタイル --- */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 15px;
+  background: white;
+  margin: 10px auto;
+  width: 800px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  text-align: left;
+  display: flex;
+  flex-direction: column; 
+}
+
+/* --- ルーム名のデザイン --- */
+
+
+
+
+
+li button:hover {
+  background-color: #218838;
+}
+.room-name {
+  font-size: 18px;
+  font-weight: bold;
+  color: #007bff;
+  padding-bottom: 5px;
+  border-bottom: 1px solid #736d6d; 
+  margin-bottom: 10px;
+}
+
+/* --- 募集要項のデザイン --- */
+.room-description {
+  font-size: 16px;
+  color: #333;
+  margin-bottom: 10px;
+  padding-bottom: 10px;
+  border-bottom: 1px solid #ddd; /* 募集要項と削除ボタンの区切り線 */
+}
+
+/* --- 削除ボタンを独立したブロックに配置 --- */
+.room-delete {
+  text-align: right;
+}
+
+
+.room-delete button:hover {
+  background-color: #218838;
+}
+
+/* --- ユーザーリストのスタイル --- */
+#room-users {
+  margin-top: 10px;
+}
+
+#room-users li {
+  padding: 8px;
+  background: #f8f9fa;
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin: 5px auto;
+  font-size: 14px;
+}
+
+/* --- ボタンエリア --- */
+#button-area {
+  margin-top: 20px;
+}
+
+/* --- 掲示板ページへ移動ボタンのスタイル --- */
+#move-forum {
+  background-color: #ff5722; /* ボタンの色をオレンジに */
+}
+
+#move-forum:hover {
+  background-color: #e64a19; /* ホバー時の色を濃いオレンジに */
+}
+
+/* 戻るリンクのスタイル */
+a {
+  display: inline-block;
+  margin-top: 20px;
+  padding: 10px 15px;
+  background-color: #28a745;
+  color: white;
+  text-decoration: none;
+  border-radius: 5px;
+  font-size: 16px;
+}
+
+a:hover {
+  background-color: #218838;
+}

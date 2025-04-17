@@ -1,118 +1,137 @@
-/* 全体のレイアウトを中央寄せ */
+/* --- bodyのスタイル --- */
 body {
-    font-family: Arial, sans-serif;
-    text-align: center;
-    background-color: #f4f4f4;
-    margin: 0;
-    padding: 20px;
-  }
-  
-  /* 見出しのデザイン */
-  h2 {
-    color: #333;
-    margin-bottom: 10px;
-  }
-  
-  /* IDの表示 */
-  p {
-    font-weight: bold;
-    font-size: 16px;
-    color: #555;
-  }
-  
-  /* 入力フォームとボタンのスタイル */
-  input {
-    padding: 10px;
-    margin: 5px;
-    border: 1px solid #ccc;
-    border-radius: 5px;
-    font-size: 16px;
-    width: 250px;
-  }
-  
-  button {
-    padding: 10px 20px;
-    margin: 10px;
-    font-size: 16px;
-    background-color: #007bff;
-    color: white;
-    border: none;
-    border-radius: 5px;
-    cursor: pointer;
-    transition: 0.3s;
-  }
-  
-  button:hover {
-    background-color: #0056b3;
-  }
-  
-  /* ルームリストのスタイル */
-  ul {
-    list-style: none;
-    padding: 0;
-    margin: 0;
-  }
-  
-  li {
-    padding: 10px;
-    background: white;
-    margin: 5px auto;
-    width: 300px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-  }
-  
-  /* ルームリスト内のボタン */
-  li button {
-    background-color: #28a745;
-  }
-  
-  li button:hover {
-    background-color: #218838;
-  }
-  
-  /* ユーザーリストのスタイル */
-  #room-users {
-    margin-top: 10px;
-  }
-  
-  #room-users li {
-    padding: 8px;
-    background: #f8f9fa;
-    width: 250px;
-    border-radius: 5px;
-    border: 1px solid #ddd;
-    margin: 5px auto;
-    font-size: 14px;
-  }
-  
-  /* ビデオのスタイル */
-  #local-video {
-    width: 300px;
-    border-radius: 10px;
-    margin-top: 20px;
-    border: 3px solid #007bff;
-  }
-  
-  /* リモートビデオエリア */
-  #remote-media-area {
-    display: flex;
-    flex-wrap: wrap;
-    justify-content: center;
-    margin-top: 20px;
-  }
-  
-  #remote-media-area video, #remote-media-area audio {
-    margin: 5px;
-    border-radius: 10px;
-    border: 2px solid #28a745;
-  }
-  
-  /* ボタンエリア */
-  #button-area {
-    margin-top: 20px;
-  }
-  
+  font-family: 'RocknRoll One', '游ゴシック体', YuGothic, sans-serif;
+  text-align: center;
+  background-color: #f4f4f4;
+  margin: 0;
+  padding: 20px;
+  background-image: url('../picture/23218216.jpg'); 
+  background-size: cover; 
+  background-attachment: fixed; 
+  background-repeat: no-repeat; 
+  background-position: center; 
+  position: relative; 
+}
+
+/* --- 背景にオーバーレイを追加 --- */
+.overlay {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: rgba(0, 0, 0, 0.5); 
+  z-index: 1; 
+}
+
+/* --- ヒエラルキーのコンテンツ --- */
+.content {
+  position: relative;
+  z-index: 2; 
+}
+
+/* --- 見出しのデザイン --- */
+h2 {
+  color: #fff;
+  margin-bottom: 10px;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
+}
+
+/* --- IDの表示 --- */
+p {
+  font-weight: bold;
+  font-size: 16px;
+  color: #fff;
+  text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.7); 
+}
+
+/* --- 入力フォームとボタンのスタイル --- */
+input {
+  padding: 10px;
+  margin: 5px;
+  border: 1px solid #ccc;
+  border-radius: 5px;
+  font-size: 16px;
+  width: 250px;
+}
+
+button {
+  padding: 10px 20px;
+  margin: 10px;
+  font-size: 16px;
+  background-color: #007bff;
+  color: white;
+  border: none;
+  border-radius: 5px;
+  cursor: pointer;
+  transition: 0.3s;
+}
+
+button:hover {
+  background-color: #0056b3;
+}
+
+/* --- ルームリストのスタイル --- */
+ul {
+  list-style: none;
+  padding: 0;
+  margin: 0;
+}
+
+li {
+  padding: 10px;
+  background: white;
+  margin: 5px auto;
+  width: 300px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+}
+
+/* --- ルームリスト内のボタン --- */
+li button {
+  background-color: #28a745;
+}
+
+li button:hover {
+  background-color: #218838;
+}
+
+/* --- ユーザーリストのスタイル --- */
+#room-users {
+  margin-top: 10px;
+}
+
+#room-users li {
+  padding: 8px;
+  background: #f8f9fa;
+  width: 250px;
+  border-radius: 5px;
+  border: 1px solid #ddd;
+  margin: 5px auto;
+  font-size: 14px;
+}
+
+/* --- ボタンエリア --- */
+#button-area {
+  margin-top: 20px;
+}
+
+/* --- 掲示板ページへ移動ボタンのスタイル --- */
+#move-forum {
+  background-color: #ff5722; 
+}
+
+#move-forum:hover {
+  background-color: #e64a19; 
+}
+
+/* --- ビデオエリアのスタイル --- */
+video {
+  width: 400px;
+  border: 2px solid #007bff;
+  border-radius: 10px;
+  margin-top: 20px;
+}
