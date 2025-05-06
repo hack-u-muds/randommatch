@@ -1,15 +1,21 @@
 import { nowInSec, SkyWayAuthToken, SkyWayContext, SkyWayRoom, SkyWayStreamFactory, uuidV4 } from "@skyway-sdk/room";
 
+require('dotenv').config(); // .env ファイルを読み込む
+
+const Your_appId = process.env.SKYWAY_APP_ID;
+const Your_apiSecret = process.env.SKYWAY_SECRET;
+
+
 const token = new SkyWayAuthToken({
   jti: uuidV4(),
   iat: nowInSec(),
   exp: nowInSec() + 60 * 60 * 24,
   version: 3,
   scope: {
-    appId: "d285f445-d39c-4b97-8bba-8381f027279e",
+    appId: Your_appId,
     rooms: [{ name: "*", methods: ["create", "close", "updateMetadata"], member: { name: "*", methods: ["publish", "subscribe", "updateMetadata"] } }]
   }
-}).encode("/Ic9tG1SNhXYfESb3aPLBl8UdXZInffQrN5yqwir+yE=");
+}).encode(Your_apiSecret);
 
 const encodeText = (text) => {
   const containsJapanese = /[\p{Script=Hiragana}\p{Script=Katakana}\p{Script=Han}]/u.test(text);
