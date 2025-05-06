@@ -47,6 +47,7 @@ npm run dev
 
 cd game_chat_board
 python app.py
+```
 
 ---
 
@@ -65,6 +66,7 @@ python app.py
 SKYWAY_APP_ID=あなたのApp ID
 SKYWAY_SECRET=あなたのSecret Key
 
+```
 # 📄 LICENSE
 
 MIT License
